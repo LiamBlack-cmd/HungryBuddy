@@ -1,0 +1,32 @@
+# Ignore Android Studio project files.
+.idea/
+
+# Ignore Gradle files.
+.gradle/
+
+# Ignore local machine configuration.
+local.properties
+
+# Ignore Android build output.
+build/
+app/build/
+
+# Ignore generated APK files.
+*.apk
+
+# Ignore generated Android App Bundle files.
+*.aab
+
+# Ignore Firebase configuration from the public repository.
+app/google-services.json
+
+# Ignore native build files.
+.externalNativeBuild/
+.cxx/
+
+# Ignore temporary operating system files.
+.DS_Store
+Thumbs.db
+
+# Ignore Android Studio module files.
+*.iml
