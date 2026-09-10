@@ -98,51 +98,57 @@ fun HungryBuddyNavGraph() {
         )
     )
 
+    val navBackStackEntry by
+    navController.currentBackStackEntryAsState()
+
+    val currentRoute =
+        navBackStackEntry?.destination?.route
+
+    val showBottomNavigation =
+        currentRoute == Routes.HOME ||
+                currentRoute == Routes.SEARCH ||
+                currentRoute == Routes.SETTINGS
+
     Scaffold(
 
         bottomBar = {
 
-            NavigationBar {
+            if (showBottomNavigation) {
 
-                val navBackStackEntry by
-                navController.currentBackStackEntryAsState()
+                NavigationBar {
 
-                val currentRoute =
-                    navBackStackEntry?.destination?.route
+                    bottomNavItems.forEach { item ->
 
-                bottomNavItems.forEach { item ->
+                        NavigationBarItem(
 
-                    NavigationBarItem(
+                            selected = currentRoute == item.route,
 
-                        selected = currentRoute == item.route,
+                            onClick = {
 
-                        onClick = {
+                                navController.navigate(item.route) {
 
-                            navController.navigate(item.route) {
+                                    popUpTo(Routes.HOME) {
+                                        saveState = true
+                                    }
 
-                                popUpTo(Routes.HOME) {
-                                    saveState = true
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
+                            },
 
-                                launchSingleTop = true
+                            icon = {
 
-                                restoreState = true
+                                Icon(
+                                    imageVector = item.icon,
+                                    contentDescription = item.label
+                                )
+                            },
+
+                            label = {
+                                Text(item.label)
                             }
-                        },
-
-                        icon = {
-
-                            Icon(
-                                imageVector = item.icon,
-                                contentDescription = item.label
-                            )
-                        },
-
-                        label = {
-
-                            Text(item.label)
-                        }
-                    )
+                        )
+                    }
                 }
             }
         }
